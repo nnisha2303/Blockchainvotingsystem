@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Blockchain Ledger</h1>
+
+    <!-- Public Key Display -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h5>Public Key</h5>
+            <pre class="bg-light p-3 rounded border">{{ public_key }}</pre>
+        </div>
+    </div>
+
+    <!-- Blockchain Blocks -->
+    {% for block in chain %}
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <strong>Block {{ block.index }}</strong>
+        </div>
+        <div class="card-body">
+            <p><strong>Hash:</strong> <code>{{ block.previous_hash }}</code></p>
+            <h5>Votes:</h5>
+            <ul>
+                {% for vote in block.votes %}
+                <li>
+                    Voter {{ vote.voter_id }} voted for {{ vote.candidate_id }}
+                    <br><strong>Signature:</strong> <code class="text-danger">{{ vote.signature }}</code>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1 class="text-center text-success">Block Mined Successfully!</h1>
+<div class="card mt-4">
+    <div class="card-header">Block {{ block.index }}</div>
+    <div class="card-body">
+        <p><strong>Timestamp:</strong> {{ block.timestamp }}</p>
+        <p><strong>Proof:</strong> {{ block.proof }}</p>
+        <p><strong>Previous Hash:</strong> {{ block.previous_hash }}</p>
+        <h5>Votes in this Block:</h5>
+        <ul>
+            {% for vote in block.votes %}
+            <li>
+                Voter {{ vote.voter_id }} voted for {{ vote.candidate_id }}
+                <br><strong>Signature:</strong> <code>{{ vote.signature }}</code>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
