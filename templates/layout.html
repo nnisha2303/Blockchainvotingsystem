@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        pre {
+            font-family: monospace;
+            font-size: 1rem;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .card {
+            border: 1px solid #e3e3e3;
+        }
+
+        .card-header {
+            font-weight: bold;
+        }
+
+        .text-danger {
+            font-weight: bold;
+            color: #dc3545 !important;
+        }
+
+        .text-info {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: white !important;
+        }
+
+        .nav-link {
+            color: white !important;
+            margin-right: 15px;
+        }
+
+        .nav-link:hover {
+            color: #ffdd57 !important;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">Blockchain Voting</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Vote</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mine">Mine Block</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/chain">View Blockchain</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/results">View Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/validate">Validate Blockchain</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/public_key">Public Key</a></li>
+                    <!-- New menu item -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content container py-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 Blockchain Voting System. All Rights Reserved.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
