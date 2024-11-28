@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Public Key</h1>
+    <div class="card shadow">
+        <div class="card-body">
+            <p class="text-info">
+                Use this public key to verify votes stored in the blockchain.
+            </p>
+            <pre class="bg-light p-3 rounded border">{{ public_key }}</pre>
+        </div>
+    </div>
+</div>
+{% endblock %}
