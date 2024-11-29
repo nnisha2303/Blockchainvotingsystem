@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request 
 from blockchain import Blockchain  # Added Blockchain class 
+from utils.crypto import get_public_key_pem  # Added for cryptography 
 
 app = Flask(__name__) 
 blockchain = Blockchain() 
@@ -12,8 +13,8 @@ def vote():
  voter_id = request.form['voter_id'] 
  candidate_id = request.form['candidate_id'] 
  blockchain.add_vote(voter_id, candidate_id)  # Add vote to the blockchain 
- # Placeholder for vote handling 
- return render_template("success.html", voter_id=voter_id, candidate_id=candidate_id) 
+  signature = blockchain.pending_votes[-1]["signature"]  # Capture signature 
+ return render_template("success.html", voter_id=voter_id, candidate_id=candidate_id, signature=signature) 
    
 @app.route('/mine', methods=['GET']) 
 def mine_block(): 
@@ -27,7 +28,29 @@ def mine_block():
  
 @app.route('/chain', methods=['GET']) 
 def view_chain(): 
-    return render_template("view_chain.html", chain=blockchain.chain) 
+     public_key = get_public_key_pem()  # Add public key for validation 
+    return render_template("view_chain.html", chain=blockchain.chain, public_key=public_key) 
+ 
+@app.route('/results', methods=['GET']) 
+def results(): 
+    vote_count = {} 
+    for block in blockchain.chain: 
+        for vote in block["votes"]: 
+            candidate = vote["candidate_id"] 
+            vote_count[candidate] = vote_count.get(candidate, 0) + 1 
+    return render_template("results.html", results=vote_count) 
+ 
+@app.route('/validate', methods=['GET']) 
+def validate_chain(): 
+    is_valid = blockchain.is_chain_valid() 
+    message = "Blockchain is valid." if is_valid else "Blockchain has been tampered with!" 
+    return render_template("validation.html", message=message) 
+ 
+@app.route('/public_key', methods=['GET']) 
+def public_key(): 
+    key_pem = get_public_key_pem()  # Provide public key 
+    return render_template("public_key.html", public_key=key_pem) 
+
  
 if __name__ == '__main__': 
 app.run(debug=True)
