@@ -1,0 +1,22 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f8f9fa;
+}
+
+header, footer {
+    color: white;
+}
+
+.card-header {
+    font-weight: bold;
+    background: #007bff;
+    color: white;
+}
+
+.btn {
+    border-radius: 20px;
+}
+
+.container {
+    margin-top: 20px;
+}
