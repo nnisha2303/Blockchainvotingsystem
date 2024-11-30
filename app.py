@@ -12,9 +12,15 @@ def index():
 def vote(): 
  voter_id = request.form['voter_id'] 
  candidate_id = request.form['candidate_id'] 
- blockchain.add_vote(voter_id, candidate_id)  # Add vote to the blockchain 
-  signature = blockchain.pending_votes[-1]["signature"]  # Capture signature 
- return render_template("success.html", voter_id=voter_id, candidate_id=candidate_id, signature=signature) 
+ blockchain.add_vote(voter_id, candidate_id)  # Add vote to the blockchain
+ 
+ # Attempt to add the vote
+    if blockchain.add_vote(voter_id, candidate_id):
+      signature = blockchain.pending_votes[-1]["signature"]  # Capture signature 
+      return render_template("success.html", voter_id=voter_id, candidate_id=candidate_id, signature=signature)
+     else:
+        # If the voter has already voted, return an error message
+        return render_template("error.html", message="You have already voted!")
    
 @app.route('/mine', methods=['GET']) 
 def mine_block(): 
